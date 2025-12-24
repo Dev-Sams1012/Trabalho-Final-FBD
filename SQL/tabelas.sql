@@ -2,12 +2,12 @@ CREATE TABLE Periodo_Musical
 (
     cod_per_musc SMALLINT NOT NULL,
     descricao VARCHAR(20) NOT NULL,
-    ano_inicio SMALLINT,
-    ano_fim SMALLINT,
+    ano_inicio SMALLINT NOT NULL,
+    ano_fim SMALLINT NOT NULL,
 
     CONSTRAINT PK_cod_per_musc PRIMARY KEY (cod_per_musc),
 
-    CONSTRAINT CK_periodo_anos CHECK (ano_inicio IS NOT NULL AND ano_fim IS NOT NULL AND ano_inicio < ano_fim),
+    CONSTRAINT CK_periodo_anos CHECK (ano_inicio < ano_fim),
 
     CONSTRAINT UQ_descricao UNIQUE (descricao)
 
@@ -84,14 +84,16 @@ CREATE TABLE Album
     cod_album SMALLINT NOT NULL,
     descricao varchar(30) NOT NULL,
     data_compra DATE NOT NULL,
-    data_grav DATE,
+    data_grav DATE NOT NULL,
     meio_fisico VARCHAR(10) NOT NULL,
     preco_compra DEC(6,2),
     gravadora SMALLINT NOT NULL,
 
     CONSTRAINT PK_album PRIMARY KEY (cod_album),
+    CONSTRAINT FK_album_gravadora FOREIGN KEY (gravadora) REFERENCES Gravadora(cod_grav),
+    CONSTRAINT CK_album_data_grav CHECK (data_grav >= '2000-01-01'),
+    CONSTRAINT CK_meio_fisico CHECK (meio_fisico IN ('CD','VINIL','DOWNLOAD'))
 
-    CONSTRAINT FK_album_gravadora FOREIGN KEY (gravadora) REFERENCES Gravadora(cod_grav)
 
 ) on FG_DADOS_GERAIS;
 
@@ -101,13 +103,14 @@ CREATE TABLE Faixa
     album SMALLINT NOT NULL,
     num_disco TINYINT NOT NULL,
     descricao VARCHAR(10),
-    tipo_comp SMALLINT,
+    tipo_comp SMALLINT NOT NULL,
     tempo_exec SMALLINT,
     tipo_grav VARCHAR(3),
 
     CONSTRAINT PK_faixa PRIMARY KEY (num_faixa, album, num_disco),
 
-    CONSTRAINT FK_faixa_album FOREIGN KEY (album) REFERENCES Album(cod_album),
+    CONSTRAINT FK_faixa_album FOREIGN KEY (album) REFERENCES Album(cod_album)
+    ON DELETE CASCADE,
 
     CONSTRAINT FK_faixa_tipo_comp FOREIGN KEY (tipo_comp) REFERENCES Tipo_Composicao(cod_tipo_comp),
 
