@@ -1,3 +1,6 @@
+USE BDSpotPer
+GO
+
 CREATE FUNCTION FN_Albuns_Por_Compositor
 (
     @nome_compositor VARCHAR(50)
