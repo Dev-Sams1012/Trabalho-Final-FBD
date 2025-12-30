@@ -1,3 +1,6 @@
+USE BDSpotPer
+GO
+
 CREATE VIEW VW_Playlist_Qtd_Albuns
 WITH SCHEMABINDING
 AS
