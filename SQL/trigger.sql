@@ -1,3 +1,6 @@
+USE BDSpotPer
+GO
+
 CREATE TRIGGER TR_limite_64_faixas 
 on Faixa
 AFTER INSERT, UPDATE
@@ -19,7 +22,7 @@ BEGIN
         RAISERROR (
             'Um álbum não pode conter mais de 64 faixas', 
             16,
-            10
+            1
         );
         ROLLBACK TRANSACTION
     END
