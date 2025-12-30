@@ -1,3 +1,5 @@
+USE BDSpotPer
+
 CREATE TABLE Periodo_Musical
 (
     cod_per_musc SMALLINT NOT NULL,
@@ -144,7 +146,7 @@ CREATE TABLE Faixa_Playlist
 
     CONSTRAINT PK_faixa_playlist PRIMARY KEY(num_faixa, album, num_disco, cod_play),
 
-    CONSTRAINT FK_faixa_playlist_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco),
+    CONSTRAINT FK_faixa_playlist_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco) ON DELETE CASCADE,
 
     CONSTRAINT FK_faixa_playlist_playlist FOREIGN KEY (cod_play) REFERENCES Playlist(cod_play)
 
@@ -158,7 +160,7 @@ CREATE TABLE Interprete_Faixa (
 
     CONSTRAINT PK_interprete_faixa PRIMARY KEY(num_faixa, album, num_disco, cod_inter),
 
-    CONSTRAINT FK_interprete_faixa_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco),
+    CONSTRAINT FK_interprete_faixa_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco) ON DELETE CASCADE,
 
     CONSTRAINT FK_interprete_faixa_interprete FOREIGN KEY (cod_inter) REFERENCES Interprete(cod_inter)
 
@@ -172,7 +174,7 @@ CREATE TABLE Compositor_Faixa (
 
     CONSTRAINT PK_compositor_faixa PRIMARY KEY(num_faixa, album, num_disco, cod_comp),
 
-    CONSTRAINT FK_compositor_faixa_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco),
+    CONSTRAINT FK_compositor_faixa_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco) ON DELETE CASCADE,
 
     CONSTRAINT FK_compositor_faixa_compositor FOREIGN KEY (cod_comp) REFERENCES Compositor(cod_comp)
     
