@@ -1,28 +1,35 @@
-import os
-import pymssql
-from dotenv import load_dotenv
+import customtkinter as ctk
+from abas.aba_inicio import AbaInicio
+from abas.aba_albuns import AbaAlbuns
+from abas.aba_playlists import AbaPlaylists
 
-load_dotenv()
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("green")
 
-def obter_conexao():
-    return pymssql.connect(
-        server=os.getenv('DB_SERVER'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME')
-    )
-    
-try:
-    conn = obter_conexao()
-    
-    cursor = conn.cursor()
-    cursor.execute('SELECT @@VERSION')
-    row = cursor.fetchone()
-    
-    print("Conexão funcionou.")
-    print(f"Versão do SQL Server: {row[0]}")
-    
-    conn.close()
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("SpotPer")
+        self.geometry("800x600")
 
-except Exception as e:
-    print(f"Erro: {e}")
+        self.tabview = ctk.CTkTabview(self)
+        self.tabview.pack(fill="both", expand=True, padx=20, pady=20)
+
+        self.tabview.add("Início")
+        self.tabview.add("Álbuns")
+        self.tabview.add("Playlists")
+        self.tabview.add("Compositores")
+        self.tabview.add("Intérpretes")
+
+        self.aba_1 = AbaInicio(self.tabview.tab("Início"))
+        self.aba_1.pack(fill="both", expand=True)
+        
+        self.aba_2 = AbaAlbuns(self.tabview.tab("Álbuns"))
+        self.aba_2.pack(fill="both", expand=True)
+        
+        self.aba_3 = AbaPlaylists(self.tabview.tab("Playlists"))
+        self.aba_3.pack(fill="both", expand=True)
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
