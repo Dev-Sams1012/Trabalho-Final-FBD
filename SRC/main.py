@@ -2,6 +2,8 @@ import customtkinter as ctk
 from abas.aba_inicio import AbaInicio
 from abas.aba_albuns import AbaAlbuns
 from abas.aba_playlists import AbaPlaylists
+from abas.aba_compositores import AbaCompositores
+from abas.aba_interpretes import Abainterpretes
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
@@ -29,6 +31,12 @@ class App(ctk.CTk):
         
         self.aba_3 = AbaPlaylists(self.tabview.tab("Playlists"))
         self.aba_3.pack(fill="both", expand=True)
+        
+        self.aba_4 = AbaCompositores(self.tabview.tab("Compositores"))
+        self.aba_4.pack(fill="both", expand=True)
+        
+        self.aba_5 = Abainterpretes(self.tabview.tab("Intérpretes"))
+        self.aba_5.pack(fill="both", expand=True)
 
 if __name__ == "__main__":
     app = App()
