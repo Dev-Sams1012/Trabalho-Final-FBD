@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from database import listar_albuns
+from database import listar_albuns, listar_faixas_do_album
 
 class AbaAlbuns(ctk.CTkFrame):
     def __init__(self, parent):
@@ -11,14 +11,14 @@ class AbaAlbuns(ctk.CTkFrame):
         self.btn = ctk.CTkButton(self, text="Atualizar Lista", command=self.listar)
         self.btn.pack(pady=10)
 
-        self.lista = ctk.CTkTextbox(self, width=400, height=200)
+        self.lista = ctk.CTkTextbox(self, width=450, height=200)
         self.lista.pack(pady=10)
 
     def listar(self):
-        dados = listar_albuns()
+        albuns = listar_albuns()
         self.lista.delete("0.0", "end")
         
-        for album in dados:
+        for album in albuns:
             cod = album['cod_album']
             desc = album['descricao']
             meio = album['meio_fisico']
@@ -26,3 +26,15 @@ class AbaAlbuns(ctk.CTkFrame):
             grav = album['gravadora']
             
             self.lista.insert("end", f"ID: {cod} | {desc} ({grav} | {meio} | {data})\n")
+            
+            faixas = listar_faixas_do_album(cod)
+            
+            if not faixas:
+                self.lista.insert("end", "\t(Nenhuma faixa cadastrada)\n")
+            else:
+                for faixa in faixas:
+                    f_num = faixa['num_faixa']
+                    f_desc = faixa['descricao']
+                    f_disc = faixa['num_disco']
+                    
+                    self.lista.insert("end", f"\tNUM: {f_num} | {f_desc} (DISCO: {f_disc})\n")
