@@ -2,7 +2,7 @@ USE BDSpotPer
 
 CREATE TABLE Periodo_Musical
 (
-    cod_per_musc SMALLINT NOT NULL,
+    cod_per_musc SMALLINT IDENTITY(1,1) NOT NULL ,
     descricao VARCHAR(20) NOT NULL,
     ano_inicio SMALLINT NOT NULL,
     ano_fim SMALLINT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE Periodo_Musical
 
 CREATE TABLE Compositor
 (
-    cod_comp SMALLINT NOT NULL,
+    cod_comp SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(20) NOT NULL,
     local_nasc VARCHAR(20),
     data_nasc DATE NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE Compositor
 
 CREATE TABLE Tipo_Composicao
 (
-    cod_tipo_comp SMALLINT NOT NULL,
+    cod_tipo_comp SMALLINT IDENTITY(1,1) NOT NULL,
     descricao VARCHAR(20) NOT NULL,
 
     CONSTRAINT PK_cod_tipo_comp PRIMARY KEY (cod_tipo_comp)
@@ -43,7 +43,7 @@ CREATE TABLE Tipo_Composicao
 
 CREATE TABLE Interprete
 (
-    cod_inter SMALLINT NOT NULL,
+    cod_inter SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(20) NOT NULL,
     tipo VARCHAR(20),
 
@@ -53,7 +53,7 @@ CREATE TABLE Interprete
 
 CREATE TABLE Gravadora
 (
-    cod_grav SMALLINT NOT NULL,
+    cod_grav SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(50) NOT NULL,
     numero_end SMALLINT NOT NULL,
     rua_end VARCHAR(20) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE Telefone_Gravadora
 
 CREATE TABLE Album
 (
-    cod_album SMALLINT NOT NULL,
+    cod_album SMALLINT IDENTITY(1,1) NOT NULL,
     descricao varchar(30) NOT NULL,
     data_compra DATE NOT NULL,
     data_grav DATE NOT NULL,
@@ -124,7 +124,7 @@ CREATE TABLE Faixa
 
 CREATE TABLE Playlist
 (
-    cod_play SMALLINT NOT NULL,
+    cod_play SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(20) NOT NULL,
     data_criacao DATE NOT NULL,
     tempo_exec SMALLINT,
