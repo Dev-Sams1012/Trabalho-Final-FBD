@@ -148,7 +148,7 @@ CREATE TABLE Faixa_Playlist
 
     CONSTRAINT FK_faixa_playlist_faixa FOREIGN KEY (num_faixa, album, num_disco) REFERENCES Faixa(num_faixa, album, num_disco) ON DELETE CASCADE,
 
-    CONSTRAINT FK_faixa_playlist_playlist FOREIGN KEY (cod_play) REFERENCES Playlist(cod_play)
+    CONSTRAINT FK_faixa_playlist_playlist FOREIGN KEY (cod_play) REFERENCES Playlist(cod_play) ON DELETE CASCADE
 
 ) on FG_PLAYLISTS;
 
