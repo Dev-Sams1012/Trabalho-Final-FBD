@@ -43,12 +43,6 @@ class AbaPlaylists(ctk.CTkFrame):
         
         self.entry_nome_play = ctk.CTkEntry(self.secao_criar, placeholder_text="Nome da Playlist")
         self.entry_nome_play.pack(pady=5, padx=10, fill="x")
-        
-        self.f_linha_tempo = ctk.CTkFrame(self.secao_criar, fg_color="transparent")
-        self.f_linha_tempo.pack(fill="x", padx=5)
-        
-        self.entry_tempo_play = ctk.CTkEntry(self.f_linha_tempo, placeholder_text="Tempo (min)", width=120)
-        self.entry_tempo_play.pack(side="left", pady=5, padx=5, fill="x", expand=True)
 
         self.btn_criar = ctk.CTkButton(self.secao_criar, text="Criar Playlist", command=self.criar_playlist)
         self.btn_criar.pack(pady=10, padx=10, fill="x")
@@ -112,24 +106,21 @@ class AbaPlaylists(ctk.CTkFrame):
 
     def criar_playlist(self):        
         nome = self.entry_nome_play.get()
-        tempo_str = self.entry_tempo_play.get()
         
-        if nome and tempo_str.isdigit():
-            tempo = int(tempo_str)
-            if 0 < tempo < 32767:
-                cria_playlist(nome, date.today(), tempo)
-                
-                self.entry_nome_play.delete(0, "end")
-                self.entry_tempo_play.delete(0, "end")
-                
-                self.limpar_lista_checkboxes(self.checkboxes_faixas_add)
-                self.limpar_lista_checkboxes(self.checkboxes_faixas_del)
-                
-                self.listar_nomes()
-                
-                self.resetar_combos()
-                
-                self.listar_tudo()
+        if not nome:
+            return
+
+        cria_playlist(nome, date.today(),)
+        self.entry_nome_play.delete(0, "end")
+        
+        self.limpar_lista_checkboxes(self.checkboxes_faixas_add)
+        self.limpar_lista_checkboxes(self.checkboxes_faixas_del)
+        
+        self.listar_nomes()
+        
+        self.resetar_combos()
+        
+        self.listar_tudo()
             
     def deletar_playlist_total(self):
         playlist_nome = self.combo_playlist_total_del.get()
@@ -267,8 +258,9 @@ class AbaPlaylists(ctk.CTkFrame):
             cod = playlist['cod_play']
             nome = playlist['nome']
             data = playlist['data_criacao']
+            tempo = playlist['tempo_exec']
             
-            self.lista.insert("end", f"ID: {cod} | NOME: {nome} | CRIAÇÃO: {data}\n")
+            self.lista.insert("end", f"ID: {cod} | NOME: {nome} | CRIAÇÃO: {data} | DURAÇÃO: {tempo}\n")
             
             faixas = listar_faixas_da_playlist(cod)
             

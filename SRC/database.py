@@ -55,7 +55,7 @@ def obter_album_id(descricao):
     return sql[0]["cod_album"] if sql else None
     
 def listar_playlists():
-    return faz_consulta("SELECT cod_play, nome, data_criacao FROM Playlist")
+    return faz_consulta("SELECT cod_play, nome, data_criacao, tempo_exec FROM Playlist")
 
 def listar_faixas_da_playlist(cod_play):
     return faz_consulta(
@@ -63,8 +63,8 @@ def listar_faixas_da_playlist(cod_play):
         FROM Faixa f JOIN Faixa_Playlist fp ON f.num_faixa = fp.num_faixa AND f.album = fp.album AND f.num_disco = fp.num_disco AND fp.cod_play = %s 
         ORDER BY num_disco, num_faixa""", [cod_play])
 
-def cria_playlist(nome, data, tempo):
-    return exec_comando("INSERT INTO Playlist (nome, data_criacao, tempo_exec) VALUES (%s, %s, %s)", [nome, data, tempo])
+def cria_playlist(nome, data):
+    return exec_comando("INSERT INTO Playlist (nome, data_criacao) VALUES (%s, %s)", [nome, data])
 
 def deleta_playlist(id_play):
     return exec_comando("DELETE FROM Playlist WHERE cod_play = %s", [id_play])
