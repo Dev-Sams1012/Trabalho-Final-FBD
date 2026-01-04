@@ -127,11 +127,11 @@ CREATE TABLE Playlist
     cod_play SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(20) NOT NULL,
     data_criacao DATE NOT NULL,
-    tempo_exec SMALLINT,
+    tempo_exec SMALLINT DEFAULT 0,
 
     CONSTRAINT PK_playlist PRIMARY KEY (cod_play),
 
-    CONSTRAINT CK_tempo_exec_playlist CHECK (tempo_exec > 0)
+    CONSTRAINT CK_tempo_exec_playlist CHECK (tempo_exec >= 0)
 
 ) on FG_PLAYLISTS;
 
