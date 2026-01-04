@@ -105,9 +105,9 @@ INSERT INTO Interprete_Faixa (num_faixa, album, num_disco, cod_inter)
 SELECT num_faixa, album, num_disco, 2 FROM Faixa WHERE album IN (2, 3);
 
 -- Playlists
-INSERT INTO Playlist (nome, data_criacao, tempo_exec) VALUES 
-('Foco Total', '2024-12-01', 9999), 
-('Favoritos', '2025-01-01', 9999);
+INSERT INTO Playlist (nome, data_criacao) VALUES 
+('Foco Total', '2024-12-01'), 
+('Favoritos', '2025-01-01');
 
 -- Faixas da Playlist
 INSERT INTO Faixa_Playlist (num_faixa, album, num_disco, cod_play, vezes_tocada, ultima_vez_tocada)
