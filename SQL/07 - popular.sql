@@ -2,10 +2,10 @@ USE BDSpotPer;
 GO
 
 -- 1. LIMPEZA TOTAL E RESET DE IDENTIDADES
-DELETE FROM Faixa_Playlist;
 DELETE FROM Interprete_Faixa;
 DELETE FROM Compositor_Faixa;
 DELETE FROM Faixa;
+DELETE FROM Faixa_Playlist;
 DELETE FROM Telefone_Gravadora;
 DELETE FROM Playlist;
 DBCC CHECKIDENT ('Playlist', RESEED, 0);
