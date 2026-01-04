@@ -131,3 +131,24 @@ BEGIN
     END
 END;
 GO
+
+CREATE TRIGGER TR_atualiza_tempo_playlist
+ON Faixa_Playlist
+AFTER INSERT, DELETE, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Playlist
+    SET tempo_exec = (
+        SELECT ISNULL(SUM(f.tempo_exec), 0)
+        FROM Faixa f
+        JOIN Faixa_Playlist fp 
+            ON f.num_faixa = fp.num_faixa 
+            AND f.album = fp.album 
+            AND f.num_disco = fp.num_disco
+        WHERE fp.cod_play = Playlist.cod_play
+    )
+    WHERE cod_play IN (SELECT cod_play FROM inserted)
+       OR cod_play IN (SELECT cod_play FROM deleted);
+END;
