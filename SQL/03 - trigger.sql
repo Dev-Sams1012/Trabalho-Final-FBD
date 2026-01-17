@@ -36,27 +36,24 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF EXISTS (
-        SELECT 1
-        FROM inserted i
-        JOIN Compositor_Faixa cf
-            ON cf.num_faixa = i.num_faixa
-           AND cf.album     = i.album
-           AND cf.num_disco = i.num_disco
-        JOIN Compositor c
-            ON c.cod_comp = cf.cod_comp
-        JOIN Periodo_Musical p
-            ON p.cod_per_musc = c.periodo_musc
-        WHERE p.descricao = 'Barroco'
-          AND (i.tipo_grav IS NULL OR i.tipo_grav <> 'DDD')
-    )
+    IF EXISTS (SELECT 1 FROM inserted WHERE tipo_grav <> 'DDD' OR tipo_grav IS NULL)
     BEGIN
-        RAISERROR (
-            'Faixas do período barroco só podem ter tipo de gravação DDD.',
-            16,
-            1
-        );
-        ROLLBACK TRANSACTION;
+        IF EXISTS (
+            SELECT 1 
+            FROM Compositor_Faixa cf
+            JOIN Compositor c ON cf.cod_comp = c.cod_comp
+            JOIN Periodo_Musical p ON c.periodo_musc = p.cod_per_musc
+            WHERE p.descricao = 'Barroco'
+              AND cf.album IN (SELECT album FROM inserted)
+        )
+        BEGIN
+            RAISERROR (
+                'Este álbum possui obras Barrocas, portanto todas as faixas devem ser gravadas em DDD.', 
+                16, 
+                1
+            );
+            ROLLBACK TRANSACTION;
+        END
     END
 END;
 GO
