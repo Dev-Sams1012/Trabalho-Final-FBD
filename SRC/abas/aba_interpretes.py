@@ -5,7 +5,7 @@ class Abainterpretes(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         
-        self.label = ctk.CTkLabel(self, text="Gerenciar interpretees", font=("Arial", 20))
+        self.label = ctk.CTkLabel(self, text="Gerenciar Intérpretes", font=("Arial", 20))
         self.label.pack(pady=20)
 
         self.btn = ctk.CTkButton(self, text="Atualizar Lista", command=self.listar)
