@@ -37,3 +37,5 @@ SELECT
 FROM dbo.VW_Playlist_Album
 GROUP BY cod_play, nome_playlist;
 GO
+
+-- queria deixar ordenado, mas view n aceita order by
