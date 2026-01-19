@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from database import listar_albuns_preco_acima_media
+from database import listar_albuns_preco_acima_media, compositor_mais_faixas, listar_playlists_concerto_barroco, listar_gravadora_maior_qtd_Dvorack
 
 class AbaEspecificas(ctk.CTkFrame):
     def __init__(self, parent):
@@ -16,47 +16,84 @@ class AbaEspecificas(ctk.CTkFrame):
 
     def criar_container_principal(self):
         self.container = ctk.CTkFrame(self, fg_color="transparent")
-        self.container.pack(padx=20, fill="both", expand=True)
+        self.container.pack(padx=20, pady=10)
 
     def criar_botoes(self):
+        largura_btn = 280
+
         self.linha1 = ctk.CTkFrame(self.container, fg_color="transparent")
-        self.linha1.pack(fill="x", pady=5)
+        self.linha1.pack(pady=5)
 
-        self.btn1 = ctk.CTkButton(self.linha1, text="Álbuns com preço acima da média", command=self.listar_consulta_1)
-        self.btn1.pack(side="left", padx=10, fill="x", expand=True)
+        self.btn1 = ctk.CTkButton(
+            self.linha1,
+            text="Álbuns com preço acima da média",
+            width=largura_btn,
+            command=self.listar_consulta_1
+        )
+        self.btn1.pack(side="left", padx=10)
 
-        self.btn2 = ctk.CTkButton(self.linha1, text="Gravadora com mais playlists (Dvorack)", command=self.listar_consulta_2)
-        self.btn2.pack(side="left", padx=10, fill="x", expand=True)
+        self.btn2 = ctk.CTkButton(
+            self.linha1,
+            text="Gravadora com mais playlists (Dvorack)",
+            width=largura_btn,
+            command=self.listar_consulta_2
+        )
+        self.btn2.pack(side="left", padx=10)
 
         self.linha2 = ctk.CTkFrame(self.container, fg_color="transparent")
-        self.linha2.pack(fill="x", pady=5)
+        self.linha2.pack(pady=5)
 
-        self.btn3 = ctk.CTkButton(self.linha2, text="Compositor com mais faixas", command=self.listar_consulta_3)
-        self.btn3.pack(side="left", padx=10, fill="x", expand=True)
+        self.btn3 = ctk.CTkButton(
+            self.linha2,
+            text="Compositor com mais faixas em playlists",
+            width=largura_btn,
+            command=self.listar_consulta_3
+        )
+        self.btn3.pack(side="left", padx=10)
 
-        self.btn4 = ctk.CTkButton(self.linha2, text="Playlists só com Concerto Barroco", command=self.listar_consulta_4)
-        self.btn4.pack(side="left", padx=10, fill="x", expand=True)
+        self.btn4 = ctk.CTkButton(
+            self.linha2,
+            text="Playlists somente com Concerto Barroco",
+            width=largura_btn,
+            command=self.listar_consulta_4
+        )
+        self.btn4.pack(side="left", padx=10)
 
     def criar_area_resultado(self):
-        self.resultado = ctk.CTkTextbox(self, height=260)
-        self.resultado.pack(padx=20, pady=15, fill="both", expand=True)
-        
+        self.resultado = ctk.CTkTextbox(self, width=300, height=200)
+        self.resultado.pack(pady=10)
+
     def limpar_resultado(self):
         self.resultado.delete("1.0", "end")
 
     def listar_consulta_1(self):
         self.limpar_resultado()
         dados = listar_albuns_preco_acima_media()
-        for albuns in dados:
-            album = albuns['descricao']
-            preco = albuns['preco_compra']
+        for dado in dados:
+            album = dado['descricao']
+            preco = dado['preco_compra']
             self.resultado.insert("end", f"{album} - R$ {preco}\n")
 
     def listar_consulta_2(self):
-        self.escrever_resultado("Resultado da consulta 2")
+        self.limpar_resultado()
+        dados = listar_gravadora_maior_qtd_Dvorack()
+        for dado in dados:
+            nome = dado['nome_gravadora']
+            total = dado['total_playlists']
+            self.resultado.insert("end", f"{nome} - {total} playlists\n")
 
     def listar_consulta_3(self):
-        self.escrever_resultado("Resultado da consulta 3")
+        self.limpar_resultado()
+        dados = compositor_mais_faixas()
+        for dado in dados:
+            nome = dado['nome']
+            total = dado['total_faixas']
+            self.resultado.insert("end", f"{nome} - {total} faixas\n")
 
     def listar_consulta_4(self):
-        self.escrever_resultado("Resultado da consulta 4")
+        self.limpar_resultado()
+        dados = listar_playlists_concerto_barroco()
+        for dado in dados:
+            cod_play = dado['cod_play']
+            nome = dado['nome']
+            self.resultado.insert("end", f"{cod_play} - {nome}\n")
