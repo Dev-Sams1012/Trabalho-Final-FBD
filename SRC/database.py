@@ -84,3 +84,7 @@ def listar_compositores():
 
 def listar_interpretes():
     return faz_consulta("SELECT cod_inter, nome, tipo FROM Interprete")
+
+def listar_albuns_preco_acima_media():
+    return faz_consulta("""SELECT descricao, preco_compra FROM Album WHERE preco_compra > (SELECT AVG(preco_compra) FROM Album)""")
+
