@@ -4,6 +4,7 @@ from abas.aba_albuns import AbaAlbuns
 from abas.aba_playlists import AbaPlaylists
 from abas.aba_compositores import AbaCompositores
 from abas.aba_interpretes import Abainterpretes
+from abas.aba_especificas import AbaEspecificas
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("green")
@@ -22,6 +23,7 @@ class App(ctk.CTk):
         self.tabview.add("Playlists")
         self.tabview.add("Compositores")
         self.tabview.add("Intérpretes")
+        self.tabview.add("Consultas Específicas")
 
         self.aba_1 = AbaInicio(self.tabview.tab("Início"))
         self.aba_1.pack(fill="both", expand=True)
@@ -37,6 +39,9 @@ class App(ctk.CTk):
         
         self.aba_5 = Abainterpretes(self.tabview.tab("Intérpretes"))
         self.aba_5.pack(fill="both", expand=True)
+
+        self.aba_6 = AbaEspecificas(self.tabview.tab("Consultas Específicas"))
+        self.aba_6.pack(fill="both", expand=True)
 
 if __name__ == "__main__":
     app = App()
