@@ -11,7 +11,7 @@ class AbaCompositores(ctk.CTkFrame):
         self.btn = ctk.CTkButton(self, text="Atualizar Lista", command=self.listar)
         self.btn.pack(pady=10)
 
-        self.lista = ctk.CTkTextbox(self, width=420, height=200)
+        self.lista = ctk.CTkTextbox(self, width=500, height=300)
         self.lista.pack(pady=10)
 
     def listar(self):

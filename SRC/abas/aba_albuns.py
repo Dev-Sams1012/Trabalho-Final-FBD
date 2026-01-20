@@ -11,7 +11,7 @@ class AbaAlbuns(ctk.CTkFrame):
         self.btn = ctk.CTkButton(self, text="Atualizar Lista", command=self.listar)
         self.btn.pack(pady=10)
 
-        self.lista = ctk.CTkTextbox(self, width=450, height=200)
+        self.lista = ctk.CTkTextbox(self, width=700, height=400)
         self.lista.pack(pady=10)
 
     def listar(self):
