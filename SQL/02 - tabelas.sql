@@ -44,8 +44,8 @@ CREATE TABLE Tipo_Composicao
 CREATE TABLE Interprete
 (
     cod_inter SMALLINT IDENTITY(1,1) NOT NULL,
-    nome VARCHAR(20) NOT NULL,
-    tipo VARCHAR(20),
+    nome VARCHAR(50) NOT NULL,
+    tipo VARCHAR(30),
 
     CONSTRAINT PK_cod_inter PRIMARY KEY (cod_inter)
 
@@ -56,8 +56,8 @@ CREATE TABLE Gravadora
     cod_grav SMALLINT IDENTITY(1,1) NOT NULL,
     nome VARCHAR(50) NOT NULL,
     numero_end SMALLINT NOT NULL,
-    rua_end VARCHAR(20) NOT NULL,
-    bairro_end VARCHAR(10) NOT NULL,
+    rua_end VARCHAR(30) NOT NULL,
+    bairro_end VARCHAR(30) NOT NULL,
     cidade_end VARCHAR(20) NOT NULL,
     estado_end CHAR(2) NOT NULL,
     url_site VARCHAR(100),
@@ -84,7 +84,7 @@ CREATE TABLE Telefone_Gravadora
 CREATE TABLE Album
 (
     cod_album SMALLINT IDENTITY(1,1) NOT NULL,
-    descricao varchar(30) NOT NULL,
+    descricao varchar(100) NOT NULL,
     data_compra DATE NOT NULL,
     data_grav DATE NOT NULL,
     meio_fisico VARCHAR(10) NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE Faixa
     num_faixa TINYINT NOT NULL,
     album SMALLINT NOT NULL,
     num_disco TINYINT NOT NULL,
-    descricao VARCHAR(10),
+    descricao VARCHAR(100),
     tipo_comp SMALLINT NOT NULL,
     tempo_exec SMALLINT,
     tipo_grav VARCHAR(3),
