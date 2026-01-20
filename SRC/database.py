@@ -88,7 +88,7 @@ def listar_interpretes():
 def listar_albuns_preco_acima_media():
     return faz_consulta("""SELECT descricao, preco_compra FROM Album WHERE preco_compra > (SELECT AVG(preco_compra) FROM Album)""")
 
-def listar_gravadora_maior_qtd_Dvorack():
+def listar_gravadora_maior_qtd_Dvorak():
     return faz_consulta("""
         SELECT g.nome AS nome_gravadora, COUNT(DISTINCT fp.cod_play) AS total_playlists
         FROM Gravadora g
@@ -106,7 +106,7 @@ def listar_gravadora_maior_qtd_Dvorack():
             ON fp.num_faixa = f.num_faixa
            AND fp.album     = f.album
            AND fp.num_disco = f.num_disco
-        WHERE c.nome = 'Dvorack'
+        WHERE c.nome = 'A. Dvorak'
         GROUP BY g.cod_grav, g.nome
         HAVING COUNT(DISTINCT fp.cod_play) = (
             SELECT MAX(qtd)
@@ -124,7 +124,7 @@ def listar_gravadora_maior_qtd_Dvorack():
                     ON fp2.num_faixa = f2.num_faixa
                    AND fp2.album     = f2.album
                    AND fp2.num_disco = f2.num_disco
-                WHERE c2.nome = 'Dvorack'
+                WHERE c2.nome = 'A. Dvorak'
                 GROUP BY g2.cod_grav
             ) sub
         )
