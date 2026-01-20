@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from database import listar_albuns_preco_acima_media, compositor_mais_faixas, listar_playlists_concerto_barroco, listar_gravadora_maior_qtd_Dvorack
+from database import listar_albuns_preco_acima_media, compositor_mais_faixas, listar_playlists_concerto_barroco, listar_gravadora_maior_qtd_Dvorak
 
 class AbaEspecificas(ctk.CTkFrame):
     def __init__(self, parent):
@@ -34,7 +34,7 @@ class AbaEspecificas(ctk.CTkFrame):
 
         self.btn2 = ctk.CTkButton(
             self.linha1,
-            text="Gravadora com mais playlists (Dvorack)",
+            text="Gravadora com mais playlists (Dvorak)",
             width=largura_btn,
             command=self.listar_consulta_2
         )
@@ -76,7 +76,7 @@ class AbaEspecificas(ctk.CTkFrame):
 
     def listar_consulta_2(self):
         self.limpar_resultado()
-        dados = listar_gravadora_maior_qtd_Dvorack()
+        dados = listar_gravadora_maior_qtd_Dvorak()
         for dado in dados:
             nome = dado['nome_gravadora']
             total = dado['total_playlists']
